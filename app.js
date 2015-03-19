@@ -1,10 +1,22 @@
-angular.module('munichDepartures', [
-  'ngMaterial',
-  'munichDepartures.stationList',
-  'munichDepartures.services'
-])
-  .config(function($mdThemingProvider, $mdIconProvider) {
+angular
+  .module('munichDepartures', [
+    'ngNewRouter',
+    'ngMaterial',
+    'munichDepartures.stationList',
+    'munichDepartures.stationDetail',
+    'munichDepartures.services'
+  ])
+  .controller('AppController', ['$router', AppController])
+  .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('teal')
       .accentPalette('pink');
-    });
+  })
+
+function AppController($router) {
+  $router.config([
+    { path: '/'                     , redirectTo: '/stations'     },
+    { path: '/stations'             , component:  'stationList'   },
+    { path: '/stations/:stationName', component:  'stationDetail' }
+  ]);
+}

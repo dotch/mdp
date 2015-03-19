@@ -15,117 +15,36 @@
   <link rel="stylesheet" href="css/app.css" />
 </head>
 
-<body ng-app="munichDepartures" layout="row">
+<!-- <body ng-app="munichDepartures" ng-controller="AppController as app" layout="row">
 
-  <div layout="column" flex ng-controller="StationListController as sl">
+  <div ng-viewport layout="row" flex class="view-frame"></div>
 
-    <!-- headerbar -->
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h1>
-          <span>Munich Departures</span>
-        </h1>
-      </div>
-    </md-toolbar>
-
-    <!-- content -->
-    <md-content>
-
-      <!-- favorites -->
-      <div ng-if="sl.favorites.length">
-        <md-toolbar>
-          <h3 class="md-toolbar-tools">
-            <span>
-              <i class="fa fa-star"></i> Favorites
-            </span>
-          </h3>
-        </md-toolbar>
-        <md-content>
-          <md-list>
-            <md-item ng-repeat="name in sl.favorites">
-              <md-item-content class="station-list-item-content">
-                <md-button flex>
-                  {{name}}
-                </md-button>
-                <md-button ng-click="sl.toggleFavorite(name)" class="md-accent">
-                  <i class="fa fa-star"></i>
-                </md-button>
-              </md-item-content>
-            </md-item>
-          </md-list>
-        </md-content>
-      </div>
-
-      <!-- nearby -->
-      <md-toolbar>
-        <h3 class="md-toolbar-tools">
-          <span flex>
-            <i class="fa fa-location-arrow"></i>
-            Nearby
-          </span>
-          <md-progress-circular class="md-hue-3"
-                                md-mode="indeterminate"
-                                md-diameter="15"
-                                ng-if="sl.requestingLocation && sl.useLocation">
-          </md-progress-circular>
-          <md-switch ng-model="sl.useLocation"
-                     aria-label="Nearby Stations Switch"
-                     ng-change="sl.locationSwitchChange()"
-                     class="md-primary md-hue-3">
-          </md-switch>
-        </h3>
-      </md-toolbar>
-      <md-content>
-        <md-list ng-if="sl.useLocation">
-          <md-item ng-repeat="it in sl.nearby">
-            <md-item-content class="station-list-item-content">
-              <md-button flex>
-                {{it.name}}
-                <small>{{it.distance}} km</small>
-              </md-button>
-              <md-button ng-click="sl.toggleFavorite(it.name)" class="md-accent">
-                <i class="fa" ng-class="sl.favorites.indexOf(it.name) !== -1 ? 'fa-star' : 'fa-star-o'"></i>
-              </md-button>
-            </md-item-content>
-          </md-item>
-        </md-list>
-      </md-content>
-
-      <!-- search -->
-      <md-toolbar>
-        <div class="md-toolbar-tools">
-          <i class="fa fa-search"></i>
-          <md-input-container md-no-float flex>
-            <input id="search" type="search" ng-model="sl.filter" placeholder="Search for station...">
-          </md-input-container>
-        </div>
-      </md-toolbar>
-      <md-content>
-        <md-list ng-if="sl.filter.length > 1">
-          <md-item ng-repeat="it in sl.stations | filter:sl.filter">
-            <md-item-content class="station-list-item-content">
-              <md-button flex>
-                {{it.name}}
-              </md-button>
-              <md-button ng-click="sl.toggleFavorite(it.name)" class="md-accent">
-                <i class="fa" ng-class="sl.favorites.indexOf(it.name) !== -1 ? 'fa-star' : 'fa-star-o'"></i>
-              </md-button>
-            </md-item-content>
-          </md-item>
-        </md-list>
-      </md-content>
-
-    </md-content>
-
-  </div>
 
   <script src="./node_modules/angular/angular.js"></script>
+  <script src="./node_modules/angular-new-router/dist/router.es5.js"></script>
   <script src="./node_modules/angular-animate/angular-animate.js"></script>
   <script src="./node_modules/angular-aria/angular-aria.js"></script>
   <script src="./node_modules/angular-material/angular-material.js"></script>
 
   <script src="./app.js"></script>
   <script src="./components/station-list/station-list.js"></script>
+
+  <script src="./js/services.js"></script>
+
+</body> -->
+<body ng-app="munichDepartures" ng-controller="AppController as app">
+
+  <div ng-viewport></div>
+
+  <script src="./node_modules/angular/angular.js"></script>
+  <script src="./node_modules/angular-new-router/dist/router.es5.js"></script>
+  <script src="./node_modules/angular-animate/angular-animate.js"></script>
+  <script src="./node_modules/angular-aria/angular-aria.js"></script>
+  <script src="./node_modules/angular-material/angular-material.js"></script>
+
+  <script src="./app.js"></script>
+  <script src="./components/station-list/station-list.js"></script>
+  <script src="./components/station-detail/station-detail.js"></script>
 
   <script src="./js/services.js"></script>
 

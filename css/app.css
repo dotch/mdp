@@ -27,3 +27,10 @@ md-list .md-button {
 .md-toolbar-tools > md-input-container > input::-webkit-input-placeholder {
     color: rgba(255,255,255,0.35);
 }
+.view-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
