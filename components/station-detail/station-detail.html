@@ -1,1 +1,29 @@
-yolo
+<div layout="column" class="view-frame">
+
+  <!-- headerbar -->
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button ng-href="./stations/">
+        <i class="fa fa-angle-left"></i>
+      </md-button>
+      <span flex>{{stationDetail.station}}</span>
+      <span>{{stationDetail.time}}</span>
+    </div>
+  </md-toolbar>
+
+  <!-- content -->
+  <md-content>
+    <md-list>
+      <md-item ng-repeat="item in stationDetail.departures">
+        <md-item-content class="departure">
+          <span>
+            <span class="{{item.type}} line-{{item.line}}">{{item.line}}</span>
+          </span>
+          <span flex> {{item.destination}}</span>
+          <span>in {{item.timeRemaining}} Min.</span>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </md-content>
+
+</div>

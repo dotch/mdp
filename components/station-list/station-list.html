@@ -1,4 +1,19 @@
-<div layout="column" class="view-frame" ng-controller="StationListController as sl">
+<script type="text/ng-template" id="station-template">
+  <md-item-content>
+    <md-button ng-href="./stations/{{item.name || item}}" flex>
+      {{item.name || item}}
+      <small ng-if="item.distance">{{item.distance}} km</small>
+    </md-button>
+    <md-button ng-if="!item.name" ng-click="stationList.toggleFavorite(item)" class="md-accent" aria-label="toggle favorite">
+      <i class="fa" ng-class="'fa-star'"></i>
+    </md-button>
+    <md-button ng-if="item.name" ng-click="stationList.toggleFavorite(item.name)" class="md-accent" aria-label="toggle favorite">
+      <i class="fa" ng-class="stationList.favorites.indexOf(item.name) !== -1 ? 'fa-star' : 'fa-star-o'"></i>
+    </md-button>
+  </md-item-content>
+</script>
+
+<div layout="column" class="view-frame">
 
   <!-- headerbar -->
   <md-toolbar>
@@ -13,7 +28,7 @@
   <md-content>
 
     <!-- favorites -->
-    <div ng-if="sl.favorites.length">
+    <div ng-if="stationList.favorites.length">
       <md-toolbar>
         <h3 class="md-toolbar-tools">
           <span>
@@ -23,15 +38,8 @@
       </md-toolbar>
       <md-content>
         <md-list>
-          <md-item ng-repeat="name in sl.favorites">
-            <md-item-content class="station-list-item-content">
-              <md-button ng-href="./stations/{{name}}" flex>
-                {{name}}
-              </md-button>
-              <md-button ng-click="sl.toggleFavorite(name)" class="md-accent">
-                <i class="fa fa-star"></i>
-              </md-button>
-            </md-item-content>
+          <md-item ng-repeat="item in stationList.favorites">
+            <div ng-include="'station-template'"></div>
           </md-item>
         </md-list>
       </md-content>
@@ -41,33 +49,24 @@
     <md-toolbar>
       <h3 class="md-toolbar-tools">
         <span flex>
-          <i class="fa fa-location-arrow"></i>
-          Nearby
+          <i class="fa fa-location-arrow"></i> Nearby
         </span>
         <md-progress-circular class="md-hue-3"
                               md-mode="indeterminate"
                               md-diameter="15"
-                              ng-if="sl.requestingLocation && sl.useLocation">
+                              ng-if="stationList.requestingLocation && stationList.useLocation">
         </md-progress-circular>
-        <md-switch ng-model="sl.useLocation"
+        <md-switch ng-model="stationList.useLocation"
                    aria-label="Nearby Stations Switch"
-                   ng-change="sl.locationSwitchChange()"
+                   ng-change="stationList.locationSwitchChange()"
                    class="md-primary md-hue-3">
         </md-switch>
       </h3>
     </md-toolbar>
     <md-content>
-      <md-list ng-if="sl.useLocation">
-        <md-item ng-repeat="it in sl.nearby">
-          <md-item-content class="station-list-item-content">
-            <md-button flex>
-              {{it.name}}
-              <small>{{it.distance}} km</small>
-            </md-button>
-            <md-button ng-click="sl.toggleFavorite(it.name)" class="md-accent">
-              <i class="fa" ng-class="sl.favorites.indexOf(it.name) !== -1 ? 'fa-star' : 'fa-star-o'"></i>
-            </md-button>
-          </md-item-content>
+      <md-list ng-if="stationList.useLocation">
+        <md-item ng-repeat="item in stationList.nearby">
+          <div ng-include="'station-template'"></div>
         </md-item>
       </md-list>
     </md-content>
@@ -77,21 +76,14 @@
       <div class="md-toolbar-tools">
         <i class="fa fa-search"></i>
         <md-input-container md-no-float flex>
-          <input id="search" type="search" ng-model="sl.filter" placeholder="Search for station...">
+          <input id="search" type="search" ng-model="stationList.filter" placeholder="Search for a station...">
         </md-input-container>
       </div>
     </md-toolbar>
     <md-content>
-      <md-list ng-if="sl.filter.length > 1">
-        <md-item ng-repeat="it in sl.stations | filter:sl.filter">
-          <md-item-content class="station-list-item-content">
-            <md-button flex>
-              {{it.name}}
-            </md-button>
-            <md-button ng-click="sl.toggleFavorite(it.name)" class="md-accent">
-              <i class="fa" ng-class="sl.favorites.indexOf(it.name) !== -1 ? 'fa-star' : 'fa-star-o'"></i>
-            </md-button>
-          </md-item-content>
+      <md-list ng-if="stationList.filter.length">
+        <md-item ng-repeat="item in stationList.stations | filter: {name: stationList.filter} | limitTo : 50">
+          <div ng-include="'station-template'"></div>
         </md-item>
       </md-list>
     </md-content>

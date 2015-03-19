@@ -1,33 +1,25 @@
-angular.module('munichDepartures.stationList', [ 'ngMaterial' ])
+angular.module('munichDepartures.stationList', [])
   .controller('StationListController', [
-    'stationService',
-    '$log',
-    '$q',
+    '$http',
     '$window',
-    '$scope',
+    // '$scope', // TODO: waiting for bugfix https://github.com/angular/router/issues/192
     StationListController
   ]);
 
-function StationListController(stationService, $log, $q, $window, $scope) {
+function StationListController($http, $window, $scope) {
   var self = this;
 
   self.selected = null;
   self.stations = [];
   self.favorites = load('favorites') || [];
   self.toggleFavorite = toggleFavorite;
-  self.filter = "";
   self.nearby = [];
-  self.nearbyCount = 6
+  self.nearbyCount = 6;
+  self.getNearby = getNearby;
   self.useLocation = load('useLocation') || false;
   self.requestingLocation = false;
   self.locationSwitchChange = locationSwitchChange;
-
-  stationService
-    .all()
-    .then(function(stations) {
-      self.stations = [].concat(stations);
-      getNearby();
-    });
+  self.$http = $http;
 
   function toggleFavorite(stationName) {
     var index = self.favorites.indexOf(stationName);
@@ -53,7 +45,6 @@ function StationListController(stationService, $log, $q, $window, $scope) {
   }
 
   function getNearby() {
-    console.log('location',self.useLocation);
     if (self.useLocation) {
       self.requestingLocation = true;
       getLocation(function(lat, long) {
@@ -114,4 +105,13 @@ function StationListController(stationService, $log, $q, $window, $scope) {
     return d;
   }
 
+}
+
+StationListController.prototype.activate = function() {
+  var self = this;
+  return this.$http.get('http://mvg.herokuapp.com/stations').then(function(response) {
+    self.stations = response.data;
+    self.getNearby();
+    return self.stations;
+  });
 }

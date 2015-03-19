@@ -2,9 +2,8 @@ angular
   .module('munichDepartures', [
     'ngNewRouter',
     'ngMaterial',
-    'munichDepartures.stationList',
     'munichDepartures.stationDetail',
-    'munichDepartures.services'
+    'munichDepartures.stationList'
   ])
   .controller('AppController', ['$router', AppController])
   .config(function($mdThemingProvider) {

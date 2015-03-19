@@ -10,6 +10,14 @@ md-list .md-button {
   padding: 16px;
   text-transform: none;
 }
+.departure {
+  font-weight: 500;
+  text-align: left;
+  padding: 16px;
+}
+.departure > *:first-child {
+  width: 40px;
+}
 
 .md-toolbar-tools i {
   margin-right: 6px;
@@ -33,4 +41,123 @@ md-list .md-button {
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.ubahn, .tram {
+  font-weight: bold;
+  color: white;
+  padding: 0 4px;
+}
+.ubahn.line-U1 {
+  background: #407637;
+}
+.ubahn.line-U2 {
+  background: #b01b38;
+}
+.ubahn.line-U3 {
+  background: #e36837;
+}
+.ubahn.line-U4 {
+  background: #00a981;
+}
+.ubahn.line-U5 {
+  background: #a96d21;
+}
+.ubahn.line-U6 {
+  background: #00639e;
+}
+.ubahn.line-U7 {
+  background: linear-gradient(
+    150deg,
+    #407637 0%,
+    #407637 50%,
+    #b01b38 51%,
+    #b01b38 100%);
+}
+.ubahn.line-U8 {
+  background: linear-gradient(
+    150deg,
+    #b01b38 0%,
+    #b01b38 50%,
+    #e36837 51%,
+    #e36837 100%);
+}
+.tram.line-12 {
+  background: #903F98;
+}
+.tram.line-15 {
+  border: 1px solid #F58F98;
+  color: #F58F98;
+  background: white;
+}
+.tram.line-16 {
+  background: #006CB2;
+}
+.tram.line-17 {
+  background: #865A46;
+}
+.tram.line-18 {
+  background: #0CB14B;
+}
+.tram.line-19 {
+  background: #ED1C24;
+}
+.tram.line-20 {
+  background: #00BFE8;
+}
+.tram.line-21,
+.tram.line-22 {
+  border: 1px solid #00BFE8;
+  color: #00BFE8;
+  background: white;
+}
+.tram.line-23 {
+  background: #B3D334;
+}
+.tram.line-25 {
+  background: #F58F98;
+}
+.tram.line-27 {
+  background: #FAA61A;
+}
+.tram.line-28 {
+  border: 1px solid #FAA61A;
+  color: #FAA61A;
+  background: white;
+}
+.bus {
+  font-weight: bold;
+  color: white;
+  padding: 3px;
+  border-radius: 25px;
+  background: #005366;
+}
+.sbahn {
+  font-weight: bold;
+  color: white;
+  padding: 0 6px;
+  border-radius: 25px;
+  background: #005366;
+}
+.sbahn.line-S1 {
+  background: #15BFE9;
+}
+.sbahn.line-S2 {
+  background: #71BF44;
+}
+.sbahn.line-S3 {
+  background: #90268F;
+}
+.sbahn.line-S4 {
+  background: #EE1C28;
+}
+.sbahn.line-S6 {
+  background: #009864;
+}
+.sbahn.line-S7 {
+  background: #88322C;
+}
+.sbahn.line-S8 {
+  background: #231F20;
+  color: #FECA0A;
 }
