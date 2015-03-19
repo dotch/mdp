@@ -1,0 +1,29 @@
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size:14px;
+  margin: 0px;
+  padding: 0px;
+}
+md-list .md-button {
+  font-weight: 500;
+  text-align: left;
+  padding: 16px;
+  text-transform: none;
+}
+
+.md-toolbar-tools i {
+  margin-right: 6px;
+}
+.md-toolbar-tools > md-switch {
+  margin-right: 0;
+}
+.md-toolbar-tools > md-input-container {
+  padding-bottom: 0;
+}
+.md-toolbar-tools > md-input-container > input {
+  border-color: rgba(255,255,255,0.87) !important;
+  color: rgba(255,255,255,0.87) !important;
+}
+.md-toolbar-tools > md-input-container > input::-webkit-input-placeholder {
+    color: rgba(255,255,255,0.35);
+}

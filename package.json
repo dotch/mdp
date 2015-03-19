@@ -1,0 +1,17 @@
+{
+  "name": "munich-departures",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Departure times for Munich's public transport stations",
+  "repository": "",
+  "scripts": {
+  },
+  "dependencies": {
+    "angular": "^1.3.15",
+    "angular-animate": "^1.3.15",
+    "angular-aria": "^1.3.15",
+    "angular-material": "^0.8.3",
+    "angular-new-router": "^0.5.0",
+    "font-awesome": "^4.3.0"
+  }
+}
