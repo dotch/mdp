@@ -1,14 +1,15 @@
 <script type="text/ng-template" id="station-template">
   <md-item-content>
-    <md-button ng-href="./stations/{{item.name || item}}" flex>
+    <md-button ng-href="{{stationList.getDetailUrl(item)}}" flex>
       {{item.name || item}}
       <small ng-if="item.distance">{{item.distance}} km</small>
     </md-button>
-    <md-button ng-if="!item.name" ng-click="stationList.toggleFavorite(item)" class="md-accent" aria-label="toggle favorite">
-      <i class="fa" ng-class="'fa-star'"></i>
-    </md-button>
-    <md-button ng-if="item.name" ng-click="stationList.toggleFavorite(item.name)" class="md-accent" aria-label="toggle favorite">
-      <i class="fa" ng-class="stationList.favorites.indexOf(item.name) !== -1 ? 'fa-star' : 'fa-star-o'"></i>
+    <md-button ng-click="stationList.toggleFavorite(item)"
+               class="md-accent"
+               aria-label="toggle favorite">
+      <i class="fa"
+         ng-class="stationList.isFavorite(item) ? 'fa-star' : 'fa-star-o'">
+      </i>
     </md-button>
   </md-item-content>
 </script>
@@ -38,7 +39,8 @@
       </md-toolbar>
       <md-content>
         <md-list>
-          <md-item ng-repeat="item in stationList.favorites">
+          <md-item ng-repeat="item in stationList.favorites"
+                   class="animate-repeat">
             <div ng-include="'station-template'"></div>
           </md-item>
         </md-list>
@@ -76,7 +78,10 @@
       <div class="md-toolbar-tools">
         <i class="fa fa-search"></i>
         <md-input-container md-no-float flex>
-          <input id="search" type="search" ng-model="stationList.filter" placeholder="Search for a station...">
+          <input id="search"
+                 type="search"
+                 ng-model="stationList.filter"
+                 placeholder="Search for a station...">
         </md-input-container>
       </div>
     </md-toolbar>
