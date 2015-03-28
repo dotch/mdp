@@ -3,11 +3,10 @@ angular.module('munichDepartures.stationList', [])
     '$http',
     '$window',
     '$router',
-    // '$scope',
     StationListController
   ]);
 
-function StationListController($http, $window, $router, $scope) {
+function StationListController($http, $window, $router) {
 
   this.stations = [];
   this.favorites = load('favorites') || [];
@@ -27,20 +26,20 @@ function StationListController($http, $window, $router, $scope) {
       this.favorites.splice(index, 1);
     }
     save('favorites', this.favorites);
-  }
+  };
 
   this.isFavorite = function(station) {
     return this.favorites.indexOf(getName(station)) !== -1;
-  }
+  };
 
   this.getDetailUrl = function(station) {
     return $router.generate('stationDetail', { stationName: getName(station)});
-  }
+  };
 
   this.locationSwitchChange = function() {
     save('useLocation', this.useLocation);
     this.getNearby();
-  }
+  };
 
   this.getNearby = function() {
     var self = this;
@@ -52,9 +51,9 @@ function StationListController($http, $window, $router, $scope) {
           self.requestingLocation = false;
           $scope.$apply();
         });
-      })
+      });
     }
-  }
+  };
 
   function save(key, object) {
     $window.localStorage.setItem(key, JSON.stringify(object));
@@ -88,7 +87,7 @@ function StationListController($http, $window, $router, $scope) {
         });
         closest.sort(function(a, b) {
           return a.distance - b.distance;
-        })
+        });
         if (closest.length > count) closest.pop();
       }
     }
@@ -97,7 +96,7 @@ function StationListController($http, $window, $router, $scope) {
 
   function getDistance(lat1, lon1, lat2, lon2) {
     function deg2rad(deg) {
-      return deg * (Math.PI / 180)
+      return deg * (Math.PI / 180);
     }
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(lat2 - lat1);
@@ -119,4 +118,4 @@ StationListController.prototype.activate = function() {
     self.getNearby();
     return self.stations;
   });
-}
+};

@@ -11,8 +11,8 @@ function StationDetailController($routeParams, $http, $router) {
   this.$routeParams = $routeParams;
 
   this.getListUrl = function() {
-    return $router.generate('stationDetail');
-  }
+    return $router.generate('stationList');
+  };
 }
 
 StationDetailController.prototype.activate = function() {
@@ -25,18 +25,17 @@ StationDetailController.prototype.activate = function() {
         departure.type = 'sbahn';
       } else if (departure.line.indexOf('X') !== -1) {
         departure.type = 'xbus';
-      } else if (departure.line < 30) {
-        departure.type = 'tram';
+      } else if (departure.line.indexOf('N') !== -1) {
+        departure.type = departure.line.slice(1) < 30 ? 'ntram' : 'nbus';
       } else {
-        departure.type = 'bus';
+        departure.type = departure.line < 30 ? 'tram' : 'bus';
       }
       return departure;
     }).sort(function(a, b) {
-      // because the api gives sbahn results after all
-      // other results
+      // because the api gives sbahn results after all other results
       return a.timeRemaining - b.timeRemaining;
     });
     self.time = response.data.time;
     self.station = response.data.station;
-  })
+  });
 };

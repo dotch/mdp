@@ -10,7 +10,7 @@ angular
     $mdThemingProvider.theme('default')
       .primaryPalette('teal')
       .accentPalette('pink');
-  })
+  });
 
 function AppController($router) {
   $router.config([
