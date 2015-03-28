@@ -122,6 +122,7 @@ StationListController.prototype.activate = function($window) {
   // request stations from api
   if (stations && timeDiff < 7) {
     self.stations = stations;
+    self.getNearby();
     return self.stations;
   } else {
     this.$http.get('http://mvg.herokuapp.com/stations').then(function(response) {
