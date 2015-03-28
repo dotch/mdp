@@ -3,10 +3,11 @@ angular.module('munichDepartures.stationList', [])
     '$http',
     '$window',
     '$router',
+    '$rootScope',
     StationListController
   ]);
 
-function StationListController($http, $window, $router) {
+function StationListController($http, $window, $router, $rootScope) {
 
   this.stations = [];
   this.favorites = load('favorites') || [];
@@ -16,6 +17,7 @@ function StationListController($http, $window, $router) {
   this.requestingLocation = false;
   this.$http = $http;
   this.$router = $router;
+  this.$window = $window;
 
   this.toggleFavorite = function(station) {
     var stationName = getName(station);
@@ -49,7 +51,7 @@ function StationListController($http, $window, $router) {
         getClosestStations(lat, long, self.stations, self.nearbyCount, function(nearbyStations) {
           self.nearby = [].concat(nearbyStations);
           self.requestingLocation = false;
-          $scope.$apply();
+          $rootScope.$apply();
         });
       });
     }
@@ -111,11 +113,23 @@ function StationListController($http, $window, $router) {
 
 }
 
-StationListController.prototype.activate = function() {
+StationListController.prototype.activate = function($window) {
   var self = this;
-  return this.$http.get('http://mvg.herokuapp.com/stations').then(function(response) {
-    self.stations = response.data;
-    self.getNearby();
+  var stations = JSON.parse($window.localStorage.getItem('stations'));
+  var lastUpdateTime = $window.localStorage.getItem('updateTime');
+  var timeDiff = (Date.now() - lastUpdateTime) / (1000 * 60 * 60 * 24);
+  // if no stations are saved locally or the last update has been longer than 7 days ago
+  // request stations from api
+  if (stations && timeDiff < 7) {
+    self.stations = stations;
     return self.stations;
-  });
+  } else {
+    this.$http.get('http://mvg.herokuapp.com/stations').then(function(response) {
+      self.stations = response.data;
+      $window.localStorage.setItem('updateTime', Date.now());
+      $window.localStorage.setItem('stations', JSON.stringify(self.stations));
+      self.getNearby();
+      return self.stations;
+    });
+  }
 };
